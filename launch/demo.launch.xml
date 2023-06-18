@@ -1,0 +1,58 @@
+<launch>
+  <arg name="use_sim_time" default="false"/>
+  <set_parameter name="use_sim_time" value="$(var use_sim_time)"/>
+
+  <include file="$(find-pkg-share simple_fusion)/launch/simple_fusion.launch.xml">
+    <arg name="camera_number" value="6"/>
+    <arg name="approximate_sync_tolerance_seconds" value="0.2"/>
+    <arg name="input/point_cloud" value="/sensing/lidar/concatenated/pointcloud"/>
+    <arg name="input/image0" value="/sensing/camera/camera0/image_rect_color"/>
+    <arg name="input/camera_info0" value="/sensing/camera/camera0/camera_info"/>
+    <arg name="input/image1" value="/sensing/camera/camera1/image_rect_color"/>
+    <arg name="input/camera_info1" value="/sensing/camera/camera1/camera_info"/>
+    <arg name="input/image2" value="/sensing/camera/camera2/image_rect_color"/>
+    <arg name="input/camera_info2" value="/sensing/camera/camera2/camera_info"/>
+    <arg name="input/image3" value="/sensing/camera/camera3/image_rect_color"/>
+    <arg name="input/camera_info3" value="/sensing/camera/camera3/camera_info"/>
+    <arg name="input/image4" value="/sensing/camera/camera4/image_rect_color"/>
+    <arg name="input/camera_info4" value="/sensing/camera/camera4/camera_info"/>
+    <arg name="input/image5" value="/sensing/camera/camera5/image_rect_color"/>
+    <arg name="input/camera_info5" value="/sensing/camera/camera5/camera_info"/>
+    <arg name="input/image6" value="/sensing/camera/camera6/image_rect_color"/>
+    <arg name="input/camera_info6" value="/sensing/camera/camera6/camera_info"/>
+    <arg name="input/image7" value="/sensing/camera/camera7/image_rect_color"/>
+    <arg name="input/camera_info7" value="/sensing/camera/camera7/camera_info"/>
+  </include>
+
+  <node pkg="image_transport" exec="republish" name="republish0" args="compressed raw">
+    <remap from="in/compressed" to="/sensing/camera/camera0/image_rect_color/compressed"/>
+    <remap from="out" to="/sensing/camera/camera0/image_rect_color"/>
+  </node>
+
+  <node pkg="image_transport" exec="republish" name="republish1" args="compressed raw">
+    <remap from="in/compressed" to="/sensing/camera/camera1/image_rect_color/compressed"/>
+    <remap from="out" to="/sensing/camera/camera1/image_rect_color"/>
+  </node>
+
+  <node pkg="image_transport" exec="republish" name="republish2" args="compressed raw">
+    <remap from="in/compressed" to="/sensing/camera/camera2/image_rect_color/compressed"/>
+    <remap from="out" to="/sensing/camera/camera2/image_rect_color"/>
+  </node>
+
+  <node pkg="image_transport" exec="republish" name="republish3" args="compressed raw">
+    <remap from="in/compressed" to="/sensing/camera/camera3/image_rect_color/compressed"/>
+    <remap from="out" to="/sensing/camera/camera3/image_rect_color"/>
+  </node>
+
+  <node pkg="image_transport" exec="republish" name="republish4" args="compressed raw">
+    <remap from="in/compressed" to="/sensing/camera/camera4/image_rect_color/compressed"/>
+    <remap from="out" to="/sensing/camera/camera4/image_rect_color"/>
+  </node>
+
+  <node pkg="image_transport" exec="republish" name="republish5" args="compressed raw">
+    <remap from="in/compressed" to="/sensing/camera/camera5/image_rect_color/compressed"/>
+    <remap from="out" to="/sensing/camera/camera5/image_rect_color"/>
+  </node>
+
+  <node pkg="rviz2" exec="rviz2" name="rviz2" args="-d $(find-pkg-share simple_fusion)/rviz/fusion.rviz"/>
+</launch>
